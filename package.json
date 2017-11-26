@@ -1,0 +1,27 @@
+{
+  "name": "envfefe",
+  "version": "1.0.0-alpha.1",
+  "description": "Parses, sanitizes, and validates environment variables.",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paperhive/envfefe.git"
+  },
+  "keywords": [
+    "environment",
+    "variables",
+    "env",
+    "parse",
+    "sanitize",
+    "validate"
+  ],
+  "author": "André Gaul <andre@paperhive.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paperhive/envfefe/issues"
+  },
+  "homepage": "https://github.com/paperhive/envfefe#readme"
+}
