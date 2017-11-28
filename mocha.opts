@@ -1,2 +1,2 @@
---require ./test-init
+--require ts-node/register
 src/**/*.test.ts
