@@ -8,7 +8,8 @@
     "lint": "tslint -p tsconfig.json src/**/*.ts",
     "prepare": "npm run build",
     "test": "mocha --opts ./mocha.opts",
-    "test-cover": "nyc npm test"
+    "test-cover": "nyc npm test",
+    "test-cover-submit": "nyc report --reporter=json && codecov -f coverage/*.json"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "@types/mocha": "^2.2.44",
     "@types/node": "^8.0.53",
     "chai": "^4.1.2",
+    "codecov": "^3.0.0",
     "mocha": "^4.0.1",
     "nyc": "^11.3.0",
     "ts-node": "^3.3.0",
