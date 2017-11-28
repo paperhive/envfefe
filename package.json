@@ -4,7 +4,11 @@
   "description": "Parses, sanitizes, and validates environment variables.",
   "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf build && tsc -p tsconfig.build.json",
+    "lint": "tslint -p tsconfig.json src/**/*.ts",
+    "prepare": "npm run build",
+    "test": "mocha --opts ./mocha.opts",
+    "test-cover": "nyc npm test"
   },
   "repository": {
     "type": "git",
