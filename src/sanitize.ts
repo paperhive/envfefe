@@ -10,7 +10,11 @@ export function boolean(value: string) {
 }
 
 export function date(value: string) {
-  return new Date(value);
+  const time = Date.parse(value);
+  if (Number.isNaN(time)) {
+    throw new Error(`Value ${value} is not a date.`);
+  }
+  return new Date(time);
 }
 
 export function json(value: string) {
@@ -18,7 +22,11 @@ export function json(value: string) {
 }
 
 export function number(value: string) {
-  return parseFloat(value);
+  const num = parseFloat(value);
+  if (Number.isNaN(num)) {
+    throw new Error(`Value ${value} is not a number.`);
+  }
+  return num;
 }
 
 export function string(value: string) {
