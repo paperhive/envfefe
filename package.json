@@ -1,6 +1,6 @@
 {
   "name": "envfefe",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-beta.1",
   "description": "Parses, sanitizes, and validates environment variables.",
   "main": "build/index.js",
   "scripts": {
