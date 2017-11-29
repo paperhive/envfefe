@@ -3,6 +3,7 @@
   "version": "1.0.0-beta.2",
   "description": "Parses, sanitizes, and validates environment variables.",
   "main": "build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
     "build": "rm -rf build && tsc -p tsconfig.build.json",
     "lint": "tslint -p tsconfig.json src/**/*.ts",
