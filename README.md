@@ -21,18 +21,22 @@ ELASTIC_PORT=9200
 ENABLE_CACHE=true
 LAUNCH_DATE=2017-12-08T10:00:00.000Z
 GCLOUD_CREDENTIALS={"apiKey": "XYZ"}
+WHITELIST=ada,john
 ```
 
 Then you can use `envfefe` for parsing and sanitizing these into an object
 that you can use in your application:
 
 ```javascript
+import { parse, sanitize } from 'envfefe';
+
 const config = parse({
   elasticHost: sanitize.string,
   elasticPost: sanitize.number,
   enableCache: sanitize.boolean,
   launchDate: sanizite.date,
   gcloudCredentials: sanitize.json,
+  whitelist: value => sanitize.string(value).split(','),
 });
 ```
 
@@ -44,6 +48,7 @@ The resulting object will then be:
   enableCache: true,
   launchDate: Date('2017-12-08T10:00:00.000Z'),
   gcloudCredentials: {apiKey: 'XYZ'},
+  whitelist: ['ada', 'john'],
 }
 ```
 
