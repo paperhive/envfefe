@@ -16,6 +16,7 @@ describe('integration tests', () => {
   it('should return a parsed object with shorthand notation', () => {
     Object.assign(process.env, {
       BOOLEAN_VAR: 'true',
+      CUSTOM_VAR: 'foo,bar',
       DATE_VAR: '2017-11-29T10:11:48.915Z',
       JSON_VAR: '{"foo": 1.337}',
       NUMBER_VAR: '1.337',
@@ -25,6 +26,7 @@ describe('integration tests', () => {
 
     expect(parse({
       booleanVar: sanitize.boolean,
+      customVar: value => sanitize.string(value).split(','),
       dateVar: sanitize.date,
       defaultVar: {sanitize: sanitize.number, optional: true, default: 1.337},
       jsonVar: sanitize.json,
@@ -34,6 +36,7 @@ describe('integration tests', () => {
       stringVar: sanitize.string,
     })).to.eql({
       booleanVar: true,
+      customVar: ['foo', 'bar'],
       dateVar: new Date('2017-11-29T10:11:48.915Z'),
       defaultVar: 1.337,
       jsonVar: {foo: 1.337},
