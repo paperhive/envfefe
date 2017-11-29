@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/paperhive/envfefe.svg?branch=master)](https://travis-ci.org/paperhive/envfefe)
 [![codecov](https://codecov.io/gh/paperhive/envfefe/branch/master/graph/badge.svg)](https://codecov.io/gh/paperhive/envfefe)
 
-> This package parses environment variables – despite the constant negative press envfefe
+> This typescript/javascript package parses environment variables – despite the constant negative press envfefe
 
 ![jai030md_19ijj80_q88qdg](https://user-images.githubusercontent.com/1874116/33260253-8be1a670-d35f-11e7-9337-988b4286ed84.png)
 
@@ -37,12 +37,12 @@ const config = parse({
 ```
 
 The resulting object will then be:
-```
+```javascript
 {
   elasticHost: 'elasticsearch',
   elasticPost: 9000,
   enableCache: true,
-  launchDate: Date(2017-12-08T10:00:00.000Z]),
+  launchDate: Date('2017-12-08T10:00:00.000Z'),
   gcloudCredentials: {apiKey: 'XYZ'},
 }
 ```
