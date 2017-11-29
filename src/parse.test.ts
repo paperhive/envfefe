@@ -37,32 +37,14 @@ describe('parse', () => {
   });
 
   describe('parse()', () => {
-    beforeEach(() => Object.assign(process.env, {
-      BOOLEAN_VAR: 'true',
-      DATE_VAR: '2017-11-29T10:11:48.915Z',
-      JSON_VAR: '{"foo": 1.337}',
-      NUMBER_VAR: '1.337',
-      STRING_VAR: 'foo',
-    }));
-
     it('should return a parsed object with shorthand notation', () => {
-      const definition = {
-        booleanVar: sanitize.boolean,
-        dateVar: sanitize.date,
-        jsonVar: sanitize.json,
-        numberVar: sanitize.number,
-        stringVar: sanitize.string,
-      };
-      expect(parse(definition)).to.eql({
-        booleanVar: true,
-        dateVar: new Date('2017-11-29T10:11:48.915Z'),
-        jsonVar: {foo: 1.337},
-        numberVar: 1.337,
-        stringVar: 'foo',
-      });
+      process.env.BOOLEAN_VAR = 'true';
+      expect(parse({booleanVar: sanitize.boolean}))
+        .to.eql({booleanVar: true});
     });
 
     it('should return a parsed object with explicit notation', () => {
+      process.env.BOOLEAN_VAR = 'true';
       expect(parse({booleanVar: {sanitize: sanitize.boolean, optional: true}}))
         .to.eql({booleanVar: true});
     });
@@ -81,16 +63,6 @@ describe('parse', () => {
     it('should return a parsed object with default value if provided', () => {
       expect(parse({optionalVar: {sanitize: sanitize.boolean, optional: true, default: false}}))
         .to.eql({optionalVar: false});
-    });
-
-    it('should throw if variable is unset and not optional', () => {
-      expect(() => parse({unsetVar: sanitize.boolean}))
-        .to.throw('Missing environment variable UNSET_VAR');
-    });
-
-    it('should throw if variable cannot be sanitized', () => {
-      expect(() => parse({booleanVar: sanitize.number}))
-        .to.throw('Environment variable BOOLEAN_VAR cannot be sanitized: Value true is not a number.');
     });
   });
 });
