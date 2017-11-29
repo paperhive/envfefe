@@ -32,7 +32,7 @@ import { parse, sanitize } from 'envfefe';
 
 const config = parse({
   elasticHost: sanitize.string,
-  elasticPost: sanitize.number,
+  elasticPort: sanitize.number,
   enableCache: sanitize.boolean,
   launchDate: sanizite.date,
   gcloudCredentials: sanitize.json,
@@ -44,7 +44,7 @@ The resulting object will then be:
 ```javascript
 {
   elasticHost: 'elasticsearch',
-  elasticPost: 9000,
+  elasticPort: 9000,
   enableCache: true,
   launchDate: Date('2017-12-08T10:00:00.000Z'),
   gcloudCredentials: {apiKey: 'XYZ'},
