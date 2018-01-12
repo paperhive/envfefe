@@ -26,7 +26,7 @@ describe('parse', () => {
     });
 
     it('should return a default value if not set and optional', () => {
-      expect(parseEnv({sanitize: sanitize.number, name: 'NUMBER_VAR', optional: true, default: -2}))
+      expect(parseEnv({sanitize: sanitize.number, name: 'NUMBER_VAR', default: -2}))
         .to.equal(-2);
     });
 
@@ -61,7 +61,7 @@ describe('parse', () => {
     });
 
     it('should return a parsed object with default value if provided', () => {
-      expect(parse({optionalVar: {sanitize: sanitize.boolean, optional: true, default: false}}))
+      expect(parse({optionalVar: {sanitize: sanitize.boolean, default: false}}))
         .to.eql({optionalVar: false});
     });
   });
