@@ -25,9 +25,14 @@ export function parseEnv(options: IGetEnvOptions) {
   const envValue = process.env[options.name];
 
   if (!envValue) {
-    if (options.optional) {
+    if (options.default !== undefined) {
       return options.default;
     }
+
+    if (options.optional) {
+      return undefined;
+    }
+
     throw new Error(`Missing environment variable ${options.name}.`);
   }
 

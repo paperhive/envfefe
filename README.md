@@ -87,6 +87,6 @@ const config = parse({
 
 ```javascript
 const config = parse({
-  elasticHost: {sanitize: sanitize.string, optional: true, default: 'localhost'},
+  elasticHost: {sanitize: sanitize.string, default: 'localhost'},
 });
 ```

@@ -28,7 +28,7 @@ describe('integration tests', () => {
       booleanVar: sanitize.boolean,
       customVar: value => sanitize.string(value).split(','),
       dateVar: sanitize.date,
-      defaultVar: {sanitize: sanitize.number, optional: true, default: 1.337},
+      defaultVar: {sanitize: sanitize.number, default: 1.337},
       jsonVar: sanitize.json,
       numberVar: sanitize.number,
       optionalStringVar: {sanitize: sanitize.string, optional: true},
