@@ -34,7 +34,7 @@ const config = parse({
   elasticHost: sanitize.string,
   elasticPort: sanitize.number,
   enableCache: sanitize.boolean,
-  launchDate: sanizite.date,
+  launchDate: sanitize.date,
   gcloudCredentials: sanitize.json,
   whitelist: value => sanitize.string(value).split(','),
 });
