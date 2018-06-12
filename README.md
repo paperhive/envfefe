@@ -1,7 +1,6 @@
 # envfefe
 
 [![npm version](https://badge.fury.io/js/envfefe.svg)](https://badge.fury.io/js/envfefe)
-[![Greenkeeper badge](https://badges.greenkeeper.io/paperhive/envfefe.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/paperhive/envfefe.svg?branch=master)](https://travis-ci.org/paperhive/envfefe)
 [![codecov](https://codecov.io/gh/paperhive/envfefe/branch/master/graph/badge.svg)](https://codecov.io/gh/paperhive/envfefe)
 
