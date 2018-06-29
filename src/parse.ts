@@ -2,26 +2,26 @@ import constantCase = require('constant-case');
 
 import * as sanitize from './sanitize';
 
-export type EnvSanitize = ((v: string) => any);
+export type EnvSanitize<R> = ((v: string) => R);
 
-export interface IEnvOptions {
-  sanitize: EnvSanitize;
+export interface IEnvOptions<R> {
+  sanitize: EnvSanitize<R>;
   name?: string;
   optional?: boolean;
-  default?: any;
+  default?: R;
 }
 
-export type DefinitionValue = EnvSanitize | IEnvOptions;
+export type DefinitionValue<R> = EnvSanitize<R> | IEnvOptions<R>;
 
-export interface IEnvDefinition {
-  [k: string]: DefinitionValue;
-}
+export type IEnvDefinition<S> = {
+  [k in keyof S]: DefinitionValue<S[k]>
+};
 
-export interface IGetEnvOptions extends IEnvOptions {
+export interface IGetEnvOptions<R> extends IEnvOptions<R> {
   name: string;
 }
 
-export function parseEnv(options: IGetEnvOptions) {
+export function parseEnv<R>(options: IGetEnvOptions<R>): R {
   const envValue = process.env[options.name];
 
   if (!envValue) {
@@ -43,23 +43,23 @@ export function parseEnv(options: IGetEnvOptions) {
   }
 }
 
-export function parse<T extends IEnvDefinition>(definition: T) {
-  // TODO: replace any with result type of T[k] when typescript supports it
-  //       see https://github.com/Microsoft/TypeScript/issues/6606
-  const parsed: {[k in keyof T]?: any} = {};
+export function parse<S>(definition: IEnvDefinition<S>) {
+  const parsed: {[P in keyof S]?: S[P]} = {};
 
-  Object.keys(definition).forEach(key => {
-    const value = definition[key];
+  for (const key in definition) {
+    if (definition.hasOwnProperty(key)) {
+      const value: DefinitionValue<S[typeof key]> = definition[key];
 
-    const options: IEnvOptions = typeof value === 'object'
-      ? value
-      : {sanitize: value};
+      const options = typeof value === 'object'
+        ? value
+        : {sanitize: value};
 
-    parsed[key] = parseEnv({
-      ...options,
-      name: options.name || constantCase(key),
-    });
-  });
+      parsed[key] = parseEnv({
+        ...options,
+        name: options.name || constantCase(key),
+      });
+    }
+  }
 
   return parsed;
 }
