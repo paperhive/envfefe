@@ -43,7 +43,7 @@ export function parseEnv<R>(options: IGetEnvOptions<R>): R {
   }
 }
 
-export function parse<S extends object>(definition: IEnvDefinition<S>) {
+export function parse<S>(definition: IEnvDefinition<S>) {
   const parsed: {[P in keyof S]?: S[P]} = {};
 
   for (const key in definition) {
