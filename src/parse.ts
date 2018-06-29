@@ -8,7 +8,7 @@ export interface IEnvOptions<R> {
   sanitize: EnvSanitize<R>;
   name?: string;
   optional?: boolean;
-  default?: any;
+  default?: R;
 }
 
 export type DefinitionValue<R> = EnvSanitize<R> | IEnvOptions<R>;
