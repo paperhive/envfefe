@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { parse, sanitize } from './index';
 
 describe('integration tests', () => {
-  let originalEnv;
+  let originalEnv: NodeJS.ProcessEnv;
   beforeEach(() => {
     originalEnv = process.env;
     process.env = {...process.env};

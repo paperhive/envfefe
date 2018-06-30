@@ -4,7 +4,7 @@ import { parse, parseEnv } from './parse';
 import * as sanitize from './sanitize';
 
 describe('parse', () => {
-  let originalEnv;
+  let originalEnv: NodeJS.ProcessEnv;
   beforeEach(() => {
     originalEnv = process.env;
     process.env = {...process.env};
