@@ -26,7 +26,7 @@ describe('integration tests', () => {
 
     expect(parse({
       booleanVar: sanitize.boolean,
-      customVar: (value: string) => sanitize.string(value).split(','),
+      customVar: value => sanitize.string(value).split(','),
       dateVar: sanitize.date,
       defaultVar: {sanitize: sanitize.number, default: 1.337},
       jsonVar: sanitize.json,
