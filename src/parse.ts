@@ -1,13 +1,17 @@
 import constantCase = require('constant-case');
 
-import * as sanitize from './sanitize';
+type ExtractReturnType<T> = T extends EnvSanitize<any>
+  ? ReturnType<T>
+  : T extends {sanitize: infer U}
+    ? ReturnType<U extends EnvSanitize<any> ? U : any> | (T extends {optional: boolean} ? undefined : never)
+    : never;
 
 export type EnvSanitize<R> = ((v: string) => R);
 
 export interface IEnvOptions<R> {
   sanitize: EnvSanitize<R>;
   name?: string;
-  optional?: boolean;
+  optional?: true;
   default?: R;
 }
 
@@ -21,7 +25,7 @@ export interface IGetEnvOptions<R> extends IEnvOptions<R> {
   name: string;
 }
 
-export function parseEnv<R>(options: IGetEnvOptions<R>): R {
+export function parseEnv<R>(options: IGetEnvOptions<R>): R | undefined {
   const envValue = process.env[options.name];
 
   if (!envValue) {
@@ -43,23 +47,23 @@ export function parseEnv<R>(options: IGetEnvOptions<R>): R {
   }
 }
 
-export function parse<S>(definition: IEnvDefinition<S>) {
-  const parsed: {[P in keyof S]?: S[P]} = {};
+export function parse<A>(definition: A & Record<string, DefinitionValue<any>>): {
+  [X in keyof A]: ExtractReturnType<A[X]>
+} {
+  const parsed: Partial<Record<keyof typeof definition, any>> = {};
 
-  for (const key in definition) {
-    if (definition.hasOwnProperty(key)) {
-      const value: DefinitionValue<S[typeof key]> = definition[key];
+  Object.keys(definition).forEach(key => {
+    const value = definition[key];
 
-      const options = typeof value === 'object'
-        ? value
-        : {sanitize: value};
+    const options = typeof value === 'object'
+      ? value
+      : {sanitize: value};
 
-      parsed[key] = parseEnv({
-        ...options,
-        name: options.name || constantCase(key),
-      });
-    }
-  }
+    parsed[key] = parseEnv({
+      ...options,
+      name: options.name || constantCase(key),
+    });
+  });
 
-  return parsed;
+  return parsed as any;
 }

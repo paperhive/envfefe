@@ -4,6 +4,7 @@
     "module": "commonjs",
     "outDir": "build",
     "rootDir": "./src",
+    "strict": true,
     "sourceMap": true,
     "target": "es6"
   }
