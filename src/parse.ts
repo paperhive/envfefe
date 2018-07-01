@@ -1,7 +1,5 @@
 import constantCase = require('constant-case');
 
-import * as sanitize from './sanitize';
-
 export type EnvSanitize<R> = ((v: string) => R);
 
 export interface IEnvOptions<R> {
