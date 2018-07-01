@@ -19,7 +19,7 @@ export interface IGetEnvOptions<R> extends IEnvOptions<R> {
   name: string;
 }
 
-export function parseEnv<R>(options: IGetEnvOptions<R>): R {
+export function parseEnv<R>(options: IGetEnvOptions<R>): R | undefined {
   const envValue = process.env[options.name];
 
   if (!envValue) {
