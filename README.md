@@ -39,7 +39,7 @@ const config = parse({
 });
 ```
 
-The resulting object will then be:
+The resulting `config` object will then be:
 ```javascript
 {
   elasticHost: 'elasticsearch',
@@ -48,6 +48,20 @@ The resulting object will then be:
   launchDate: Date('2017-12-08T10:00:00.000Z'),
   gcloudCredentials: {apiKey: 'XYZ'},
   whitelist: ['ada', 'john'],
+}
+```
+
+This module comes with full TypeScript support so if you are using
+TypeScript then `config` will even have the correct types
+automatically:
+```typescript
+{
+  elasticHost: string;
+  elasticPort: number;
+  enableCache: boolean;
+  launchDate: Date;
+  gcloudCredentials: any;
+  whitelist: string[];
 }
 ```
 
