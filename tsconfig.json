@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "declaration": true,
+    "esModuleInterop": true,
     "module": "commonjs",
-    "outDir": "build",
-    "rootDir": "./src",
+    "outDir": "dist/",
+    "rootDir": "src/",
     "sourceMap": true,
     "strict": true,
     "target": "es6"

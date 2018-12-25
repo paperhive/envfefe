@@ -26,28 +26,29 @@ WHITELIST=ada,john
 Then you can use `envfefe` for parsing and sanitizing these into an object
 that you can use in your application:
 
-```javascript
-import { parse, sanitize } from 'envfefe';
+```typescript
+import { parseEnv } from 'envfefe'
+import { parseBoolean, parseDate, parseJson, parseNumber, string } from 'fefe'
 
-const config = parse({
-  elasticHost: sanitize.string,
-  elasticPort: sanitize.number,
-  enableCache: sanitize.boolean,
-  launchDate: sanitize.date,
-  gcloudCredentials: sanitize.json,
-  whitelist: value => sanitize.string(value).split(','),
-});
+const config = parseEnv({
+  elasticHost: string(),
+  elasticPort: parseNumber(),
+  enableCache: parseBoolean(),
+  launchDate: parseDate(),
+  gcloudCredentials: parseJson(),
+  whitelist: value => value.split(','),
+})
 ```
 
 The resulting `config` object will then be:
-```javascript
+```typescript
 {
   elasticHost: 'elasticsearch',
   elasticPort: 9000,
   enableCache: true,
   launchDate: Date('2017-12-08T10:00:00.000Z'),
   gcloudCredentials: {apiKey: 'XYZ'},
-  whitelist: ['ada', 'john'],
+  whitelist: ['ada', 'john']
 }
 ```
 
@@ -56,12 +57,12 @@ TypeScript then `config` will even have the correct types
 automatically:
 ```typescript
 {
-  elasticHost: string;
-  elasticPort: number;
-  enableCache: boolean;
-  launchDate: Date;
-  gcloudCredentials: any;
-  whitelist: string[];
+  elasticHost: string
+  elasticPort: number
+  enableCache: boolean
+  launchDate: Date
+  gcloudCredentials: any
+  whitelist: string[]
 }
 ```
 
@@ -84,7 +85,7 @@ or unrelated names (why would you?) then you can set the name manually:
 
 ```javascript
 const config = parse({
-  elasticHost: {name: 'MYELASTICHOST', sanitize: sanitize.string},
+  elasticHost: {name: 'MYELASTICHOST', sanitize: string()},
 });
 ```
 
@@ -92,7 +93,7 @@ const config = parse({
 
 ```javascript
 const config = parse({
-  elasticHost: {sanitize: sanitize.string, optional: true},
+  elasticHost: {sanitize: string(), optional: true},
 });
 ```
 
@@ -100,6 +101,6 @@ const config = parse({
 
 ```javascript
 const config = parse({
-  elasticHost: {sanitize: sanitize.string, default: 'localhost'},
+  elasticHost: {sanitize: string(), default: 'localhost'},
 });
 ```
