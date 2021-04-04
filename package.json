@@ -52,7 +52,8 @@
     "constant-case": "^3.0.0",
     "fefe": "^3.0.0-beta",
     "fp-ts": "^2.9.5"
-  },  "mocha": {
+  },
+  "mocha": {
     "require": "ts-node/register",
     "spec": "src/**/*.test.ts"
   },
