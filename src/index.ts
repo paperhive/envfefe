@@ -1,1 +1,1 @@
-export { parseEnv } from './parse-env'
+export * from './parse-env'
