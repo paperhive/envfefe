@@ -1,8 +1,8 @@
 # envfefe
 
 [![npm version](https://badge.fury.io/js/envfefe.svg)](https://badge.fury.io/js/envfefe)
-[![Build Status](https://travis-ci.org/paperhive/envfefe.svg?branch=master)](https://travis-ci.org/paperhive/envfefe)
-[![codecov](https://codecov.io/gh/paperhive/envfefe/branch/master/graph/badge.svg)](https://codecov.io/gh/paperhive/envfefe)
+[![Test](https://github.com/paperhive/envfefe/actions/workflows/test.yaml/badge.svg)](https://github.com/paperhive/envfefe/actions/workflows/test.yaml)
+[![codecov](https://codecov.io/gh/paperhive/envfefe/branch/main/graph/badge.svg?token=ASCyvDGYAx)](https://codecov.io/gh/paperhive/envfefe)
 
 > This typescript/javascript package parses environment variables – despite the constant negative press envfefe
 
