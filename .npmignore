@@ -1,8 +1,10 @@
-coverage
+/.*
+/coverage
 /src
 node_modules
 npm-debug.log
 .DS_Store
 .nyc_output
-.*.swp
-tsconfig*.json
+tsconfig.json
+*.tgz
+*.test.*

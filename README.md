@@ -10,6 +10,8 @@
 
 Disclaimer: the author of this package opposes Trump and other racists and misogynists.
 
+`envfefe` makes extensive use of the [fefe](https://github.com/paperhive/fefe) module that provides type-safe and purely functional validation, sanitization and transformation.
+
 ## Usage
 
 Imagine you use the following environment variables, e.g., in a Docker `.env` file:
@@ -28,19 +30,19 @@ that you can use in your application:
 
 ```typescript
 import { parseEnv } from 'envfefe'
-import { parseBoolean, parseDate, parseJson, parseNumber, string } from 'fefe'
+import { parseBoolean, parseDate, parseJson, parseNumber, pipe, string, success } from 'fefe'
 
 const config = parseEnv({
   elasticHost: string(),
-  elasticPort: parseNumber(),
-  enableCache: parseBoolean(),
-  launchDate: parseDate(),
-  gcloudCredentials: parseJson(),
-  whitelist: value => value.split(','),
+  elasticPort: pipe(string()).pipe(parseNumber()),
+  enableCache: pipe(string()).pipe(parseBoolean()),
+  launchDate: pipe(string()).pipe(parseDate()),
+  gcloudCredentials: pipe(string()).pipe(parseJson()),
+  whitelist: pipe(string()).pipe(value => success(value.split(','))),
 })
 ```
 
-The resulting `config` object will then be:
+If validation passes (check via `isSuccess(config)`) then `config.right` will equal:
 ```typescript
 {
   elasticHost: 'elasticsearch',
@@ -53,47 +55,35 @@ The resulting `config` object will then be:
 ```
 
 This module comes with full TypeScript support so if you are using
-TypeScript then `config` will even have the correct types
-automatically:
+TypeScript then `config.right` will have the correct types automatically:
 ```typescript
 {
   elasticHost: string
   elasticPort: number
   enableCache: boolean
   launchDate: Date
-  gcloudCredentials: any
+  gcloudCredentials: unknown
   whitelist: string[]
 }
 ```
 
 Note:
  * `camelCase` keys are automatically translated to
-   `SNAKE_CASE` environment variable names. You can override
-   this behavior, see below.
+   `SNAKE_CASE` environment variable names.
  * By default all variables are mandatory. See below for
    optional variables and default values.
  * Values in the resulting object have proper types. If it can't be
    sanitized because of a wrong type (like providing `foo` for a number)
-   will throw an error.
+   then `isSuccess(config)` will be `false` and `config.left` contains
+   the `FefeError` (see [FefeError docs](https://github.com/paperhive/fefe#fefeerror)).
 
 ## Advanced usage
-
-### Specify environment variable names manually
-
-If you don't use `SNAKE_CASE` for your environment variables
-or unrelated names (why would you?) then you can set the name manually:
-
-```javascript
-const config = parse({
-  elasticHost: {name: 'MYELASTICHOST', sanitize: string()},
-});
-```
 
 ### Optional variables
 
 ```javascript
 const config = parse({
-  elasticHost: {sanitize: string(), optional: true},
+  elasticHost: optional(string())
 });
 ```
 
@@ -101,6 +91,6 @@ const config = parse({
 
 ```javascript
 const config = parse({
-  elasticHost: {sanitize: string(), default: 'localhost'},
+  elasticHost: defaultTo(string())
 });
 ```
