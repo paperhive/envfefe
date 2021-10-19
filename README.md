@@ -91,6 +91,6 @@ const config = parse({
 
 ```javascript
 const config = parse({
-  elasticHost: defaultTo(string())
+  elasticHost: defaultTo(string(), 'default value')
 });
 ```
